@@ -60,6 +60,7 @@ a {
 
     width: 520px;
     height: 365px;
+    border: 3px solid #1D1D1D;
     border-radius: 55px;
     overflow: hidden;
 
@@ -98,13 +99,14 @@ a {
 
 .btn-section {
     width: 100%;
-    height: 75px;
+    height: 90px;
     background-color: black;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 5px;
 }
 
 .btn-section button {
@@ -113,14 +115,12 @@ a {
     background-color: #0000;
     font-family: 'Stranger Things.ttf';
     font-size: 17px;
-    border: 1px solid #0000;
-    border-radius: 20px;
+    border-radius: 5px;
 
     transition: .3s;
 }
 
 .btn-section button:hover {
-    text-shadow: 2px 2px 3px #ff0000;
-    background: linear-gradient(#930606);
-    box-shadow: 0px 0px 5px #a31111;
+    text-shadow: 0px 0px 5px #fff;
+    background: linear-gradient(to top, #240000, #340000, #930606, #e40202, #ff0000);
 }
