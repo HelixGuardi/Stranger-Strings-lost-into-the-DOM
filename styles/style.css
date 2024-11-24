@@ -53,11 +53,6 @@ a {
 }
 
 .tv-frame-screen {
-    background-image: url("../Resources/img/eddie-guitar-moc-pixel-art.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
     width: 520px;
     height: 365px;
     border: 3px solid #1D1D1D;
@@ -72,6 +67,17 @@ a {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+#initial-screen {
+    display: none;
+}
+
+#main-initial-screen {
+    background-image: url("../Resources/img/eddie-guitar-moc-pixel-art.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .header-logo {
@@ -126,7 +132,14 @@ a {
 }
 
 #game-screen {
-    display: none;
+    display: flex;
+}
+
+#game-background {
+    background-image: url("../Resources/img/eddie-guitar-moc-pixel-art.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #game-over-screen {
