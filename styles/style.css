@@ -13,6 +13,7 @@
     src: local('Stranger Things Outlined.ttf'), url('Stranger Things Outlined.woff') format('woff');
 }
 
+/* inicial adjustments */
 * {
     padding: 0;
     margin: 0;
@@ -36,6 +37,7 @@ a {
     text-decoration: none;
 }
 
+/* basic visualization screen config (tv-frame + tv-screen) */
 .container {
     background-image: url("../Resources/img/old-tv-frame-pixel-art-with-extra-screen.png");
     background-position: center;
@@ -55,8 +57,8 @@ a {
 .tv-frame-screen {
     width: 520px;
     height: 365px;
-    border: 3px solid #1D1D1D;
-    border-radius: 55px;
+    border: 5px solid #1D1D1D;
+    border-radius: 50px;
     overflow: hidden;
 
     position: absolute;
@@ -69,8 +71,9 @@ a {
     align-items: center;
 }
 
+/* initial screen section */
 #initial-screen {
-    display: none;
+    display: flex;
 }
 
 #main-initial-screen {
@@ -131,17 +134,34 @@ a {
     background: linear-gradient(to top, #240000, #340000, #930606, #e40202, #ff0000);
 }
 
+/* game screen section */
 #game-screen {
-    display: flex;
+    display: none;
 }
 
 #game-background {
-    background-image: url("../Resources/img/eddie-guitar-moc-pixel-art.jpg");
+    background-image: url("../Resources/img/upside-down-top-down-background-pixel-art.jpeg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+/* game over screen section */
 #game-over-screen {
     display: none;
+}
+
+#game-over-background {
+    background-image: url("../Resources/img/stranger-things-gif-wiliamsHouse-upside-down.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+#game-over-message-img {
+    width: 110px;
+    filter: drop-shadow(0px 0px 5px #ff0000)
 }

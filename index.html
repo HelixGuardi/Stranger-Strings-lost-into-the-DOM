@@ -10,10 +10,13 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
+
+
     <!-- Initial Screen -->
-    <div id="initial-screen" class="container">
-      <div id="main-initial-screen" class="tv-frame-screen">
-        <div class="header-logo">
+    <div id="initial-screen" class="container"> <!-- televison frame -->
+      <div id="main-initial-screen" class="tv-frame-screen"> <!-- screen basic config -->
+
+        <div class="header-logo"> <!-- black target with logo and subtitle -->
           <img
             id="stranger-strings-logo"
             src="./Resources/img/Stranger-Strings-Logo.png"
@@ -21,18 +24,22 @@
           />
           <h2 id="subtitle-logo">LOST INTO THE DOM</h2>
         </div>
-        <div class="btn-section">
+
+
+        <div class="btn-section"> <!-- black target with initial buttons -->
           <button id="start-btn">START</button>
           <button id="instructions-btn">INSTRUCTIONS</button>
         </div>
+
+
       </div>
     </div>
 
 
 
     <!-- Game Screen  -->
-    <div id="game-screen" class="container">
-        <div id="game-background" class="tv-frame-screen">
+    <div id="game-screen" class="container"> <!-- television frame -->
+        <div id="game-background" class="tv-frame-screen"> <!-- screen basic config -->
             <!-- the game will run here -->
         </div>
     </div>
@@ -40,12 +47,25 @@
 
 
     <!-- Game Over Screen -->
-    <div id="game-over-screen" class="container">
-        <div class="tv-frame-screen">
-            <!-- the "Game-Over" screen will show up here -->
+    <div id="game-over-screen" class="container"> <!-- television frame -->
+        <div id="game-over-background" class="tv-frame-screen"> <!-- screen basic config -->
+
+
+          <div class="header-logo"> <!-- black target with game-over phrase (format: img) -->
+            <img id="game-over-message-img" src="./Resources/img/game-over-text-final-screen.png" alt="game over">
+          </div>
+
+
+          <div class="btn-section"> <!-- black target with end-screen buttons -->
+            <button id="restart-btn">RESTART</button>
+            <button id="main-screen-btn">MAIN SCREEN</button>
+          </div>
+
+          
         </div>
     </div>
 
+    <!-- link to the script -->
     <script src="./script/index.js"></script>
   </body>
 </html>
