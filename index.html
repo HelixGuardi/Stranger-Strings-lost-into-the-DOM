@@ -14,7 +14,7 @@
 
     <!-- Initial Screen -->
     <div id="initial-screen" class="container"> <!-- televison frame -->
-      <div id="main-initial-screen" class="tv-frame-screen"> <!-- screen basic config -->
+      <div id="main-initial-screen" class="tv-frame-screen"> <!-- basic screen config -->
 
         <div class="header-logo"> <!-- black target with logo and subtitle -->
           <img
@@ -39,8 +39,11 @@
 
     <!-- Game Screen  -->
     <div id="game-screen" class="container"> <!-- television frame -->
-        <div id="game-background" class="tv-frame-screen"> <!-- screen basic config -->
-            <!-- the game will run here -->
+        <div id="game-background" class="tv-frame-screen"> <!-- basic screen config -->
+          <!-- Here should be elements like score, life, time...(out of the game-box) -->
+             <div id="game-box">
+              <!-- all the elements of the game will be added here from JS with DOM's manipulation -->
+             </div>
         </div>
     </div>
 
@@ -48,7 +51,7 @@
 
     <!-- Game Over Screen -->
     <div id="game-over-screen" class="container"> <!-- television frame -->
-        <div id="game-over-background" class="tv-frame-screen"> <!-- screen basic config -->
+        <div id="game-over-background" class="tv-frame-screen"> <!-- basic screen config -->
 
 
           <div class="header-logo"> <!-- black target with game-over phrase (format: img) -->
@@ -66,6 +69,8 @@
     </div>
 
     <!-- link to the script -->
+    <script src="./script/hero.js"></script>
+    <script src="./script/enemy.js"></script>
     <script src="./script/index.js"></script>
   </body>
 </html>
