@@ -23,7 +23,6 @@ let enemyArr = [];
 let addEnemyIntervalId1 = null;
 let addEnemyIntervalId2 = null;
 
-
 // FUNCIONES GLOBALES DEL JUEGO
 function startGame() {
 
@@ -56,6 +55,7 @@ function gameLoop() {
     })
 
     checkCollisionEddieVsMonster();
+    checkCollisionEnemyVsAtack();
 }
 
 function addEnemy(side) {
@@ -90,7 +90,20 @@ function gameOver() {
     setTimeout(() => {
         gameScreenNode.style.display = "none";
         gameOverScreenNode.style.display = "flex";
-    }, 900);
+    }, 500);
+}
+
+function checkCollisionEnemyVsAtack() {
+    // atackArr.forEach((eachEffect) => {
+    //     if (
+    //         enemyObj.x < eachEffect.x + eachEffect.w &&
+    //         enemyObj.x + enemyObj.w > eachEffect.x &&
+    //         enemyObj.y < eachEffect.y + eachEffect.h &&
+    //         enemyObj.y + enemyObj.h > eachEffect.y
+    //     ) {
+    //         enemyArr.shift();
+    //     }
+    // })
 }
 
 // EVENT LISTENERS
@@ -103,11 +116,11 @@ document.addEventListener('keydown', (event) => {
     if(event.code === 'KeyW') {
         heroObj.jump();
     } else if (event.code === 'KeyD') {
-        console.log("moviendo personaje a la derecha");
+        // console.log("moviendo personaje a la derecha");
         heroObj.movement("right");
 
     } else if (event.code === 'KeyA') {
-        console.log("moviendo personaje a la izquierda");
+        // console.log("moviendo personaje a la izquierda");
         heroObj.movement("left");
     }
 });
@@ -115,12 +128,15 @@ document.addEventListener('keydown', (event) => {
     // atk effect
 document.addEventListener('keydown', (event) => {
     if(event.code === 'Space') {
-        atackObj = new Atack();
+
+        let playerPos = heroObj.x;
+
+        atackObj = new Atack(playerPos);
         atackArr.push(atackObj);
 
         setTimeout(() => {
             atackArr[0].node.remove();
             atackArr.shift();
-        }, 350)
-    }
+        }, 200);
+    };
 });
