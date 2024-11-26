@@ -1,4 +1,5 @@
 class Hero {
+
   constructor() {
     // here we have all the properties of the hero
     // we start with the image and we insert the image to the gamebox
@@ -20,8 +21,6 @@ class Hero {
     this.node.style.top = `${this.y}px`;
     this.node.style.left = `${this.x}px`;
 
-    this.isMovingFoward = false;
-    this.isMovingBackward = false;
     this.gravitySpeed = 5;
     this.speed = 12;
   }
@@ -44,6 +43,18 @@ class Hero {
           setTimeout(() => {
             clearInterval(jumpIntervalId);
           }, 100);
+    }
+  }
+
+  movement(direction) {
+    if(direction === "right") {
+      this.x += this.speed;
+      this.node.style.left = `${this.x}px`;
+      console.log(this.x);
+    } else if (direction === "left") {
+      this.x -= this.speed;
+      this.node.style.left = `${this.x}px`;
+      console.log(this.x);
     }
   }
 }
