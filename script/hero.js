@@ -22,7 +22,7 @@ class Hero {
     this.node.style.left = `${this.x}px`;
 
     this.gravitySpeed = 5;
-    this.speed = 20;
+    this.speed = 25;
   }
 
   // here we have all the methods of the Hero
@@ -36,7 +36,7 @@ class Hero {
   jump() {
     if(this.y === 250) {
         let jumpIntervalId = setInterval(() => {
-            this.y -= 15;
+            this.y -= 17;
             this.node.style.top = `${this.y}px`;
           }, 10);
       

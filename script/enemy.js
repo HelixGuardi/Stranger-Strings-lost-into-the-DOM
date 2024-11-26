@@ -12,9 +12,9 @@ class Enemy {
             this.x = 496;
         }
         // this.x = this.enemySpawnPosition();
-        this.y = 225;
-        this.w = 90;
-        this.h = 100;
+        this.y = 250;
+        this.w = 50;
+        this.h = 80;
 
         this.node.style.width = `${this.w}px`;
         this.node.style.height = `${this.h}px`;
@@ -24,15 +24,9 @@ class Enemy {
         this.node.style.top = `${this.y}px`;
         this.node.style.left = `${this.x}px`;
     
-        this.speed = 1.5;
+        this.speed = 1;
         this.orientation = orientation;
     }
-
-    // enemySpawnPosition() {
-    //     const position = [-56];
-    //     const randomIndex = Math.floor(Math.random() * position.length);
-    //     return position[randomIndex];
-    // }
 
     enemyMovement() {
         if(this.orientation === "left") {

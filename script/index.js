@@ -16,9 +16,12 @@ const mainScreenBtnNode = document.querySelector("#main-screen-btn");
 let heroObj = null;
 let enemyObj = null;
 let eddieObj = null;
-// let enemy1 = null;
-// let enemy2 = null;
+let atackObj = null;
+let gameIntervalId = null;
+let atackArr = [];
 let enemyArr = [];
+let addEnemyIntervalId1 = null;
+let addEnemyIntervalId2 = null;
 
 
 // FUNCIONES GLOBALES DEL JUEGO
@@ -30,8 +33,6 @@ function startGame() {
 
     eddieObj = new Eddie(); // aparece Eddie
     heroObj = new Hero(); // aparece Hero
-    // enemy1 = new Enemy("left");
-    // enemy2 = new Enemy("right");
 
     gameIntervalId = setInterval(() => {
         gameLoop();
@@ -44,19 +45,17 @@ function startGame() {
     addEnemyIntervalId2 = setInterval(() => {
         addEnemy("right");
     }, Math.floor(Math.random() * (8000 - 2500 + 1)) + 2500);
-
-
 }
 
 function gameLoop() {
     // console.log("test");
     // HERE WE ADD ONLY WHAT MUST BE EXECUTED 60 TIMES PER SECOND. (WHAT MUST BE CONTINUOUSLY CHECKED IN THE GAME)
     heroObj.gravityEffect();
-    // enemy1.enemyMovement();
-    // enemy2.enemyMovement();
     enemyArr.forEach((eachEnemy) => {
         eachEnemy.enemyMovement();
     })
+
+    checkCollisionEddieVsMonster();
 }
 
 function addEnemy(side) {
@@ -70,21 +69,58 @@ function addEnemy(side) {
 
 }
 
+function checkCollisionEddieVsMonster() {
+    enemyArr.forEach((eachEnemy) => {
+        if(
+            eddieObj.x < eachEnemy.x + eachEnemy.w &&
+            eddieObj.x + eddieObj.w > eachEnemy.x &&
+            eddieObj.y < eachEnemy.y + eachEnemy.h &&
+            eddieObj.y + eddieObj.h > eachEnemy.y
+        ) {
+            gameOver();
+        }
+    })
+}
+
+function gameOver() {
+    clearInterval(gameIntervalId);
+    clearInterval(addEnemyIntervalId1);
+    clearInterval(addEnemyIntervalId2);
+
+    setTimeout(() => {
+        gameScreenNode.style.display = "none";
+        gameOverScreenNode.style.display = "flex";
+    }, 900);
+}
+
 // EVENT LISTENERS
 startBtnNode.addEventListener('click', () => {
     startGame();
 })
 
-    // movimiento del personaje
+    // hero movement
 document.addEventListener('keydown', (event) => {
-    if(event.code === 'Space') {
+    if(event.code === 'KeyW') {
         heroObj.jump();
-    } else if (event.code === 'ArrowRight') {
+    } else if (event.code === 'KeyD') {
         console.log("moviendo personaje a la derecha");
         heroObj.movement("right");
 
-    } else if (event.code === 'ArrowLeft') {
+    } else if (event.code === 'KeyA') {
         console.log("moviendo personaje a la izquierda");
         heroObj.movement("left");
+    }
+});
+
+    // atk effect
+document.addEventListener('keydown', (event) => {
+    if(event.code === 'Space') {
+        atackObj = new Atack();
+        atackArr.push(atackObj);
+
+        setTimeout(() => {
+            atackArr[0].node.remove();
+            atackArr.shift();
+        }, 350)
     }
 });

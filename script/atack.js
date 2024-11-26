@@ -1,15 +1,15 @@
-class Eddie {
+class Atack {
 
     constructor() {
         this.node = document.createElement("img");
-        this.node.src = "../Resources/personajes/epic-guitar-moment-eddie-stranger-things-canal-alpha.png";
+        this.node.src = "../Resources/animaciones/fast-slash-no-color-pixel-art copia.webp"
 
         gameBoxNode.append(this.node);
 
-        this.x = 210;
-        this.y = 240;
-        this.w = 70;
-        this.h = 70;
+        // this.x = 105;
+        this.y = 250;
+        this.w = 60;
+        this.h = 65;
 
         this.node.style.width = `${this.w}px`;
         this.node.style.height = `${this.h}px`;
