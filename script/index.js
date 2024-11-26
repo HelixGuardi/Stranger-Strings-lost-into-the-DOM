@@ -16,9 +16,9 @@ const mainScreenBtnNode = document.querySelector("#main-screen-btn");
 let heroObj = null;
 let enemyObj = null;
 let eddieObj = null;
-let enemy1 = null;
-let enemy2 = null;
-// let enemyArr = [];
+// let enemy1 = null;
+// let enemy2 = null;
+let enemyArr = [];
 
 
 // FUNCIONES GLOBALES DEL JUEGO
@@ -30,12 +30,20 @@ function startGame() {
 
     eddieObj = new Eddie(); // aparece Eddie
     heroObj = new Hero(); // aparece Hero
-    enemy1 = new Enemy("left");
-    enemy2 = new Enemy("right");
+    // enemy1 = new Enemy("left");
+    // enemy2 = new Enemy("right");
 
     gameIntervalId = setInterval(() => {
         gameLoop();
     }, Math.round(1000/60)); // 60 FPS
+
+    addEnemyIntervalId1 = setInterval(() => {
+        addEnemy("left");
+    }, Math.floor(Math.random() * (8000 - 2500 + 1)) + 2500);
+
+    addEnemyIntervalId2 = setInterval(() => {
+        addEnemy("right");
+    }, Math.floor(Math.random() * (8000 - 2500 + 1)) + 2500);
 
 
 }
@@ -44,16 +52,23 @@ function gameLoop() {
     // console.log("test");
     // HERE WE ADD ONLY WHAT MUST BE EXECUTED 60 TIMES PER SECOND. (WHAT MUST BE CONTINUOUSLY CHECKED IN THE GAME)
     heroObj.gravityEffect();
-    enemy1.enemyMovement();
-    enemy2.enemyMovement();
-
+    // enemy1.enemyMovement();
+    // enemy2.enemyMovement();
+    enemyArr.forEach((eachEnemy) => {
+        eachEnemy.enemyMovement();
+    })
 }
 
-// function addEnemy() {
-//     let enemy1 = new Enemy("left");
-//     enemyArr.push(enemy1);
+function addEnemy(side) {
+    if(side === "left"){
+        let enemy1 = new Enemy("left");
+        enemyArr.push(enemy1);
+    } else if (side === "right") {
+        let enemy2 = new Enemy("right");
+        enemyArr.push(enemy2);
+    }
 
-// }
+}
 
 // EVENT LISTENERS
 startBtnNode.addEventListener('click', () => {

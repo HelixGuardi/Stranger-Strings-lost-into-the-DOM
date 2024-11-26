@@ -24,7 +24,7 @@ class Enemy {
         this.node.style.top = `${this.y}px`;
         this.node.style.left = `${this.x}px`;
     
-        this.speed = 2;
+        this.speed = 1.5;
         this.orientation = orientation;
     }
 
