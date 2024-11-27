@@ -14,6 +14,8 @@ const restartBtnNode = document.querySelector("#restart-btn");
 const mainScreenBtnNode = document.querySelector("#main-screen-btn");
 const returnBtnNode = document.querySelector("#return-btn");
 
+let sound = new Audio("../Resources/Audio/master-of-puppets-music.mp3");
+
 // VARIABLES GLOBALES DEL JUEGO
 let heroObj = null;
 let eddieObj = null;
@@ -82,6 +84,7 @@ function checkCollisionEddieVsMonster() {
 }
 
 function gameOver() {
+  sound.pause();
   clearInterval(gameIntervalId);
   clearInterval(addEnemyIntervalId1);
   clearInterval(addEnemyIntervalId2);
@@ -111,6 +114,7 @@ function checkCollisionEnemyVsAtack() {
 
 // EVENT LISTENERS
 startBtnNode.addEventListener("click", () => {
+  sound.play();
   startGame();
 });
 
@@ -167,23 +171,22 @@ instructionsBtnNode.addEventListener("click", () => {
 });
 
 mainScreenBtnNode.addEventListener("click", () => {
-    
-    // vaciamos las variables
-    heroObj = null;
-    eddieObj = null;
-    gameIntervalId = null;
-    atackArr = [];
-    enemyArr = [];
-    addEnemyIntervalId1 = null;
-    addEnemyIntervalId2 = null;
-    // vaciamos el game-box
-    gameBoxNode.innerHTML = null;
+  // vaciamos las variables
+  heroObj = null;
+  eddieObj = null;
+  gameIntervalId = null;
+  atackArr = [];
+  enemyArr = [];
+  addEnemyIntervalId1 = null;
+  addEnemyIntervalId2 = null;
+  // vaciamos el game-box
+  gameBoxNode.innerHTML = null;
 
-    gameOverScreenNode.style.display = "none";
-    initialScreenNode.style.display = "flex";
+  gameOverScreenNode.style.display = "none";
+  initialScreenNode.style.display = "flex";
 });
-  
-returnBtnNode.addEventListener('click', () => {
-    instructionsScreenNode.style.display = "none";
-    initialScreenNode.style.display = "flex";
-})
+
+returnBtnNode.addEventListener("click", () => {
+  instructionsScreenNode.style.display = "none";
+  initialScreenNode.style.display = "flex";
+});
