@@ -8,14 +8,22 @@
     </title>
     <!-- link to the stylesheet -->
     <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-
     <!-- Initial Screen -->
-    <div id="initial-screen" class="container"> <!-- televison frame -->
-      <div id="main-initial-screen" class="tv-frame-screen"> <!-- basic screen config -->
+    <div id="initial-screen" class="container">
+      <!-- televison frame -->
+      <div id="main-initial-screen" class="tv-frame-screen">
+        <!-- basic screen config -->
 
-        <div class="header-logo"> <!-- black target with logo and subtitle -->
+        <div class="header-logo">
+          <!-- black target with logo and subtitle -->
           <img
             id="stranger-strings-logo"
             src="./Resources/img/Stranger-Strings-Logo.png"
@@ -24,62 +32,73 @@
           <h2 id="subtitle-logo">LOST INTO THE DOM</h2>
         </div>
 
-
-        <div class="btn-section"> <!-- black target with initial buttons -->
+        <div class="btn-section">
+          <!-- black target with initial buttons -->
           <button id="start-btn">START</button>
           <button id="instructions-btn">INSTRUCTIONS</button>
         </div>
-
-
       </div>
     </div>
 
-
-
     <!-- Game Screen  -->
-    <div id="game-screen" class="container"> <!-- television frame -->
-        <div id="game-background" class="tv-frame-screen"> <!-- basic screen config -->
-          <!-- Here should be elements like score, life, time...(out of the game-box) -->
-             <div id="game-box">
-              <!-- all the elements of the game will be added here from JS with DOM's manipulation -->
-             </div>
+    <div id="game-screen" class="container">
+      <div id="timeRemaining">Remaining Time: <span>00:00</span></div>
+      <!-- television frame -->
+      <div id="game-background" class="tv-frame-screen">
+        <!-- basic screen config -->
+        <!-- Here should be elements like score, life, time...(out of the game-box) -->
+        <div id="game-box">
+          <!-- all the elements of the game will be added here from JS with DOM's manipulation -->
         </div>
+      </div>
     </div>
-
-
 
     <!-- Game Over Screen -->
-    <div id="game-over-screen" class="container"> <!-- television frame -->
-        <div id="game-over-background" class="tv-frame-screen"> <!-- basic screen config -->
+    <div id="game-over-screen" class="container">
+      <!-- television frame -->
+      <div id="game-over-background" class="tv-frame-screen">
+        <!-- basic screen config -->
 
-
-          <div class="header-logo"> <!-- black target with game-over phrase (format: img) -->
-            <img id="game-over-message-img" src="./Resources/img/game-over-text-final-screen.png" alt="game over">
-          </div>
-
-
-          <div class="btn-section"> <!-- black target with end-screen buttons -->
-            <button id="restart-btn">RESTART</button>
-            <button id="main-screen-btn">MAIN SCREEN</button>
-          </div>
-
-          
+        <div class="header-logo">
+          <!-- black target with game-over phrase (format: img) -->
+          <img
+            id="game-over-message-img"
+            src="./Resources/img/game-over-text-final-screen.png"
+            alt="game over"
+          />
         </div>
+
+        <div class="btn-section">
+          <!-- black target with end-screen buttons -->
+          <button id="restart-btn">RESTART</button>
+          <button id="main-screen-btn">MAIN SCREEN</button>
+        </div>
+      </div>
     </div>
-
-
 
     <!-- Instructions Screen -->
     <div id="instructions-screen" class="container">
       <div id="instructions-background" class="tv-frame-screen">
-        <img id="keyboard-img" src="./Resources/instructions/selected-keys-keyboard-img-removebg-preview.png" alt="keyboard">
-        <img id="wasd-keys-gif" src="./Resources/instructions/wasd-animation-key-unscreen-resource.gif" alt="animated W A S D keys">
+        <img
+          id="keyboard-img"
+          src="./Resources/instructions/selected-keys-keyboard-img-removebg-preview.png"
+          alt="keyboard"
+        />
+        <img
+          id="wasd-keys-gif"
+          src="./Resources/instructions/wasd-animation-key-unscreen-resource.gif"
+          alt="animated W A S D keys"
+        />
         <p id="key-text-jump" class="p-container">JUMP</p>
         <p id="key-text-left" class="p-container">LEFT</p>
         <p id="key-text-right" class="p-container">RIGHT</p>
-        <img id="space-bar-key-img" src="./Resources/instructions/space-key-keyboard-removebg-img.png" alt="space bar">
+        <img
+          id="space-bar-key-img"
+          src="./Resources/instructions/space-key-keyboard-removebg-img.png"
+          alt="space bar"
+        />
         <p id="key-text-atack" class="p-container">ATACK</p>
-          <button id="return-btn">RETURN</button>
+        <button id="return-btn">RETURN</button>
       </div>
     </div>
 
@@ -88,6 +107,7 @@
     <script src="./script/atack.js"></script>
     <script src="./script/eddie.js"></script>
     <script src="./script/enemy.js"></script>
+    <script src="./script/epicVideo.js"></script>
     <script src="./script/index.js"></script>
   </body>
 </html>

@@ -14,8 +14,6 @@ const restartBtnNode = document.querySelector("#restart-btn");
 const mainScreenBtnNode = document.querySelector("#main-screen-btn");
 const returnBtnNode = document.querySelector("#return-btn");
 
-let sound = new Audio("../Resources/Audio/master-of-puppets-music.mp3");
-
 // VARIABLES GLOBALES DEL JUEGO
 let heroObj = null;
 let eddieObj = null;
@@ -48,7 +46,6 @@ function startGame() {
 }
 
 function gameLoop() {
-  // console.log("test");
   // HERE WE ADD ONLY WHAT MUST BE EXECUTED 60 TIMES PER SECOND. (WHAT MUST BE CONTINUOUSLY CHECKED IN THE GAME)
   heroObj.gravityEffect();
   enemyArr.forEach((eachEnemy) => {
@@ -57,7 +54,6 @@ function gameLoop() {
 
   checkCollisionEddieVsMonster();
   checkCollisionEnemyVsAtack();
-  console.log(enemyArr.length);
 }
 
 function addEnemy(side) {
@@ -104,7 +100,6 @@ function checkCollisionEnemyVsAtack() {
         eachEnemy.y < eachAtk.y + eachAtk.h &&
         eachEnemy.y + eachEnemy.h > eachAtk.y
       ) {
-        // console.log("enemy removed");
         enemyArr[i].node.remove();
         enemyArr.splice(i, 1); // remueves siempre el primero
       }
@@ -116,6 +111,7 @@ function checkCollisionEnemyVsAtack() {
 startBtnNode.addEventListener("click", () => {
   sound.play();
   startGame();
+  startCountDown();
 });
 
 // hero movement
@@ -123,10 +119,8 @@ document.addEventListener("keydown", (event) => {
   if (event.code === "KeyW") {
     heroObj.jump();
   } else if (event.code === "KeyD") {
-    // console.log("moviendo personaje a la derecha");
     heroObj.movement("right");
   } else if (event.code === "KeyA") {
-    // console.log("moviendo personaje a la izquierda");
     heroObj.movement("left");
   }
 });
@@ -155,6 +149,7 @@ restartBtnNode.addEventListener("click", () => {
   enemyArr = [];
   addEnemyIntervalId1 = null;
   addEnemyIntervalId2 = null;
+  sound.currentTime = 0;
   // vaciamos el game-box
   gameBoxNode.innerHTML = null;
 
@@ -162,6 +157,7 @@ restartBtnNode.addEventListener("click", () => {
   gameOverScreenNode.style.display = "none";
   initialScreenNode.style.display = "flex";
 
+  sound.play();
   startGame();
 });
 
@@ -179,6 +175,7 @@ mainScreenBtnNode.addEventListener("click", () => {
   enemyArr = [];
   addEnemyIntervalId1 = null;
   addEnemyIntervalId2 = null;
+  sound.currentTime = 0;
   // vaciamos el game-box
   gameBoxNode.innerHTML = null;
 
@@ -190,3 +187,71 @@ returnBtnNode.addEventListener("click", () => {
   instructionsScreenNode.style.display = "none";
   initialScreenNode.style.display = "flex";
 });
+
+// BONUS IDEAS
+
+// AUDIO + TIMER
+let sound = new Audio("../Resources/Audio/master-of-puppets-music.mp3");
+sound.volume = 0.2;
+
+let gameDuration = 340; //should be 340
+
+// convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
+const minutes = Math.floor(gameDuration / 60)
+  .toString()
+  .padStart(2, "0");
+const seconds = (gameDuration % 60).toString().padStart(2, "0");
+
+// display the time remaining in the time remaining container
+const timeRemainingContainer = document.getElementById("timeRemaining");
+timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+
+//TIMER
+function startCountDown() {
+  intervalId = setInterval(() => {
+    gameDuration--;
+
+    const minutes = Math.floor(gameDuration / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = (gameDuration % 60).toString().padStart(2, "0");
+    const timeRemainingContainer = document.getElementById("timeRemaining");
+    timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+
+    if (gameDuration === 0) {
+      clearInterval(intervalId);
+      //función para mostrar el video que queremos
+      epicFinalShowUp();
+    }
+  }, 1000);
+}
+
+function epicFinalShowUp() {
+  sound.pause();
+  clearInterval(gameIntervalId);
+  clearInterval(addEnemyIntervalId1);
+  clearInterval(addEnemyIntervalId2);
+
+  let epicVideoObj = new EpicVideo();
+
+  setTimeout(() => {
+    // vaciamos las variables
+    heroObj = null;
+    eddieObj = null;
+    gameIntervalId = null;
+    atackArr = [];
+    enemyArr = [];
+    addEnemyIntervalId1 = null;
+    addEnemyIntervalId2 = null;
+    // vaciamos el game-box
+    gameBoxNode.innerHTML = null;
+    gameDuration = 340;
+    sound.currentTime = 0;
+  }, 58500);
+  
+  setTimeout(() => {
+    gameScreenNode.style.display = "none";
+    initialScreenNode.style.display = "flex";
+  }, 58000);
+
+}
