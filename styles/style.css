@@ -74,7 +74,7 @@ a {
 
 /* initial screen section */
 #initial-screen {
-  display: flex;
+  display: flex; /* initial value = flex */
 }
 
 #main-initial-screen {
@@ -144,7 +144,7 @@ a {
 
 /* game screen section */
 #game-screen {
-  display: none;
+  display: none; /* initial value = none */
 }
 
 #game-background {
@@ -169,7 +169,7 @@ a {
 
 /* game over screen section */
 #game-over-screen {
-  display: none;
+  display: none; /* initial value = none */
 }
 
 #game-over-background {
@@ -185,4 +185,97 @@ a {
 #game-over-message-img {
   width: 110px;
   filter: drop-shadow(0px 0px 5px #ff0000);
+}
+
+/* Instructions Screen Section */
+#instructions-screen {
+  display: none; /* initial value = none; */
+}
+
+#instructions-background {
+    background-image: url("../Resources/img/max-upside-down-world-stranger-things.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#keyboard-img {
+  width: 400px;
+  filter: drop-shadow(17px 17px 7px black);
+
+  position: absolute;
+  top: 20px;
+
+}
+
+#wasd-keys-gif {
+  width: 150px;
+  filter: drop-shadow(0px 0px 10px red);
+
+  position: absolute;
+  bottom: 35px;
+  left: 45px;
+}
+
+#space-bar-key-img {
+  width: 150px;
+  filter: drop-shadow(0px 0px 10px red);
+
+  position: absolute;
+  bottom: 90px;
+  right: 50px;
+}
+
+.p-container {
+  color: white;
+  font-size: 17px;
+  position: absolute;
+}
+
+#key-text-jump {
+  bottom: 150px;
+  left: 100px;
+}
+
+#key-text-left {
+  bottom: 77px;
+  left: 10px;
+}
+
+#key-text-right {
+  bottom: 77px;
+  left: 190px;
+}
+
+#key-text-atack {
+  bottom: 65px;
+  right: 100px;
+}
+
+#return-btn {
+  width: 100px;
+
+  color: white;
+  padding: 5px;
+  background-color: transparent;
+  font-family: "Stranger Things.ttf";
+  font-size: 17px;
+  border-radius: 5px;
+
+  transition: 0.3s;
+  
+  position: absolute;
+  bottom: 10px;
+}
+
+#return-btn:hover {
+  text-shadow: 0px 0px 5px #fff;
+  background: linear-gradient(
+    to top,
+    #240000,
+    #340000,
+    #930606,
+    #e40202,
+    #ff0000
+  );
 }

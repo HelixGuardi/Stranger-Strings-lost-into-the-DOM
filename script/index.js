@@ -5,12 +5,14 @@ const initialScreenNode = document.querySelector("#initial-screen");
 const gameScreenNode = document.querySelector("#game-screen");
 const gameBoxNode = document.querySelector("#game-box");
 const gameOverScreenNode = document.querySelector("#game-over-screen");
+const instructionsScreenNode = document.querySelector("#instructions-screen");
 
 // Botones
 const startBtnNode = document.querySelector("#start-btn");
 const instructionsBtnNode = document.querySelector("#instructions-btn");
 const restartBtnNode = document.querySelector("#restart-btn");
 const mainScreenBtnNode = document.querySelector("#main-screen-btn");
+const returnBtnNode = document.querySelector("#return-btn");
 
 // VARIABLES GLOBALES DEL JUEGO
 let heroObj = null;
@@ -158,3 +160,30 @@ restartBtnNode.addEventListener("click", () => {
 
   startGame();
 });
+
+instructionsBtnNode.addEventListener("click", () => {
+  initialScreenNode.style.display = "none";
+  instructionsScreenNode.style.display = "flex";
+});
+
+mainScreenBtnNode.addEventListener("click", () => {
+    
+    // vaciamos las variables
+    heroObj = null;
+    eddieObj = null;
+    gameIntervalId = null;
+    atackArr = [];
+    enemyArr = [];
+    addEnemyIntervalId1 = null;
+    addEnemyIntervalId2 = null;
+    // vaciamos el game-box
+    gameBoxNode.innerHTML = null;
+
+    gameOverScreenNode.style.display = "none";
+    initialScreenNode.style.display = "flex";
+});
+  
+returnBtnNode.addEventListener('click', () => {
+    instructionsScreenNode.style.display = "none";
+    initialScreenNode.style.display = "flex";
+})
