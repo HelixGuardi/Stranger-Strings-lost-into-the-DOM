@@ -6,7 +6,7 @@ class Atack {
 
         gameBoxNode.append(this.node);
 
-        this.x = posX + 30;
+        this.x = posX + 10;
         this.y = 250;
         this.w = 60;
         this.h = 65;

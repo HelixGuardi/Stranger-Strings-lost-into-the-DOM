@@ -50,9 +50,11 @@ class Hero {
     if(direction === "right") {
       this.x += this.speed;
       this.node.style.left = `${this.x}px`;
+      this.node.src = "../Resources/personajes/Dustin-canal-aplha.png"
     } else if (direction === "left") {
       this.x -= this.speed;
       this.node.style.left = `${this.x}px`;
+      this.node.src = "../Resources/personajes/Dustin-canal-alpha-izquierda.png"
     }
   }
 }

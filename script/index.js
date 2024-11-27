@@ -14,6 +14,8 @@ const restartBtnNode = document.querySelector("#restart-btn");
 const mainScreenBtnNode = document.querySelector("#main-screen-btn");
 const returnBtnNode = document.querySelector("#return-btn");
 
+const ambientMusicBtn = document.querySelector("#btnAmbientSound");
+
 // VARIABLES GLOBALES DEL JUEGO
 let heroObj = null;
 let eddieObj = null;
@@ -22,6 +24,20 @@ let atackArr = [];
 let enemyArr = [];
 let addEnemyIntervalId1 = null;
 let addEnemyIntervalId2 = null;
+
+//effects audio
+let punchSound = new Audio("../Resources/Audio/punch-effect-sound.mp3");
+punchSound.volume = 0.1;
+
+let gameOverSound = new Audio(
+  "../Resources/Audio/videogame-death-sound-43894.mp3"
+);
+gameOverSound.volume = 0.1;
+
+let clickSound = new Audio("../Resources/Audio/simple-click.mp3");
+clickSound.volume = 0.2;
+
+let ambientSoundAudio = new Audio("../Resources/Audio/mystical-soundtrack.mp3");
 
 // FUNCIONES GLOBALES DEL JUEGO
 function startGame() {
@@ -38,11 +54,11 @@ function startGame() {
 
   addEnemyIntervalId1 = setInterval(() => {
     addEnemy("left");
-  }, Math.floor(Math.random() * (8000 - 2500 + 1)) + 2500);
+  }, Math.floor(Math.random() * (5500 - 1000 + 1)) + 1000);
 
   addEnemyIntervalId2 = setInterval(() => {
     addEnemy("right");
-  }, Math.floor(Math.random() * (8000 - 2500 + 1)) + 2500);
+  }, Math.floor(Math.random() * (5500 - 1000 + 1)) + 1000);
 }
 
 function gameLoop() {
@@ -74,6 +90,7 @@ function checkCollisionEddieVsMonster() {
       eddieObj.y < eachEnemy.y + eachEnemy.h &&
       eddieObj.y + eddieObj.h > eachEnemy.y
     ) {
+      gameOverSound.play();
       gameOver();
     }
   });
@@ -88,7 +105,7 @@ function gameOver() {
   setTimeout(() => {
     gameScreenNode.style.display = "none";
     gameOverScreenNode.style.display = "flex";
-  }, 500);
+  }, 350);
 }
 
 function checkCollisionEnemyVsAtack() {
@@ -102,6 +119,7 @@ function checkCollisionEnemyVsAtack() {
       ) {
         enemyArr[i].node.remove();
         enemyArr.splice(i, 1); // remueves siempre el primero
+        punchSound.play();
       }
     });
   });
@@ -109,6 +127,8 @@ function checkCollisionEnemyVsAtack() {
 
 // EVENT LISTENERS
 startBtnNode.addEventListener("click", () => {
+  clickSound.play();
+  ambientSoundAudio.pause();
   sound.play();
   startGame();
   startCountDown();
@@ -136,11 +156,13 @@ document.addEventListener("keydown", (event) => {
     setTimeout(() => {
       atackArr[0].node.remove();
       atackArr.shift();
-    }, 175);
+    }, 170);
   }
 });
 
 restartBtnNode.addEventListener("click", () => {
+  clickSound.play();
+
   // vaciamos las variables
   heroObj = null;
   eddieObj = null;
@@ -162,11 +184,13 @@ restartBtnNode.addEventListener("click", () => {
 });
 
 instructionsBtnNode.addEventListener("click", () => {
+  clickSound.play();
   initialScreenNode.style.display = "none";
   instructionsScreenNode.style.display = "flex";
 });
 
 mainScreenBtnNode.addEventListener("click", () => {
+  clickSound.play();
   // vaciamos las variables
   heroObj = null;
   eddieObj = null;
@@ -184,15 +208,19 @@ mainScreenBtnNode.addEventListener("click", () => {
 });
 
 returnBtnNode.addEventListener("click", () => {
+  clickSound.play();
   instructionsScreenNode.style.display = "none";
   initialScreenNode.style.display = "flex";
 });
 
+ambientMusicBtn.addEventListener("click", () => {
+    ambientSoundAudio.play();
+});
 // BONUS IDEAS
 
 // AUDIO + TIMER
 let sound = new Audio("../Resources/Audio/master-of-puppets-music.mp3");
-sound.volume = 0.2;
+sound.volume = 0.1;
 
 let gameDuration = 340; //should be 340
 
@@ -248,10 +276,9 @@ function epicFinalShowUp() {
     gameDuration = 340;
     sound.currentTime = 0;
   }, 58500);
-  
+
   setTimeout(() => {
     gameScreenNode.style.display = "none";
     initialScreenNode.style.display = "flex";
   }, 58000);
-
 }
