@@ -50,11 +50,11 @@ class Hero {
     if(direction === "right") {
       this.x += this.speed;
       this.node.style.left = `${this.x}px`;
-      console.log(this.x);
+      // console.log(this.x);
     } else if (direction === "left") {
       this.x -= this.speed;
       this.node.style.left = `${this.x}px`;
-      console.log(this.x);
+      // console.log(this.x);
     }
   }
 }
