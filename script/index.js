@@ -409,16 +409,23 @@ function epicFinalShowUp() {
   let epicVideoObj = new EpicVideo();
 
   setTimeout(() => {
-    // vaciamos las variables
-    heroObj = null;
-    eddieObj = null;
-    gameIntervalId = null;
-    atackArr = [];
-    enemyArr = [];
-    enemyLeftIntervalId = null;
-    enemyRightIntervalId = null;
-    // vaciamos el game-box
-    gameBoxNode.innerHTML = null;
+  // vaciamos las variables
+  heroObj = null;
+  eddieObj = null;
+  gameIntervalId = null;
+  casetObj = null;
+  enemyToKill = null;
+  atackArr = [];
+  enemyArr = [];
+  thunderArr = [];
+  enemyLeftIntervalId = null;
+  enemyRightIntervalId = null;
+  sound.currentTime = 0;
+  spawnTime1 = 3000;
+  spawnTime2 = 2600;
+  gameDuration = 340;
+  // vaciamos el game-box
+  gameBoxNode.innerHTML = null;
     gameDuration = 340;
     sound.currentTime = 0;
   }, 58500);
