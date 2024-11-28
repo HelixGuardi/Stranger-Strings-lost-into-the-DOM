@@ -22,7 +22,7 @@ class Hero {
     this.node.style.left = `${this.x}px`;
 
     this.gravitySpeed = 5;
-    this.speed = 7;
+    this.speed = 5;
 
     this.isMovingRight = false;
     this.isMovingLeft = false;
@@ -41,6 +41,7 @@ class Hero {
         let jumpIntervalId = setInterval(() => {
             this.y -= 17;
             this.node.style.top = `${this.y}px`;
+            // console.log(this.y);
           }, 10);
       
           setTimeout(() => {
@@ -54,10 +55,12 @@ class Hero {
       this.x += this.speed;
       this.node.style.left = `${this.x}px`;
       this.node.src = "./Resources/personajes/Dustin-canal-aplha.png"
+      // console.log(`right posX:${this.x}`);
     } else if (direction === "left") {
       this.x -= this.speed;
       this.node.style.left = `${this.x}px`;
       this.node.src = "./Resources/personajes/Dustin-canal-alpha-izquierda.png"
+      // console.log(`left posX:${this.x}`);
     }
   }
 }

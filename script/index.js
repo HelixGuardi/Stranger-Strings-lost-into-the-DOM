@@ -1,13 +1,14 @@
-// ELEMENTOS PRINCIPALES DEL DOM
+/************  MAIN ELEMENTS OF THE DOM  ************/
 
-// Pantallas
+// SCREENS
 const initialScreenNode = document.querySelector("#initial-screen");
 const gameScreenNode = document.querySelector("#game-screen");
 const gameBoxNode = document.querySelector("#game-box");
 const gameOverScreenNode = document.querySelector("#game-over-screen");
 const instructionsScreenNode = document.querySelector("#instructions-screen");
 
-// Botones
+
+// BUTTONS
 const startBtnNode = document.querySelector("#start-btn");
 const instructionsBtnNode = document.querySelector("#instructions-btn");
 const restartBtnNode = document.querySelector("#restart-btn");
@@ -15,21 +16,26 @@ const mainScreenBtnNode = document.querySelector("#main-screen-btn");
 const returnBtnNode = document.querySelector("#return-btn");
 const ambientMusicBtn = document.querySelector("#btnAmbientSound");
 
-// VARIABLES GLOBALES DEL JUEGO
-let heroObj = null;
-let eddieObj = null;
-let gameIntervalId = null;
 
-let atackArr = [];
-let enemyArr = [];
+// GLOBAL VARIABLES OF THE GAME
+let heroObj = null; // hero
+let eddieObj = null; // eddie
+let gameIntervalId = null; // game interval (game-loop)
+let casetObj = null; // caset-item (special item of the game)
+let enemyToKill = null; // variable that we use to locate the enemy that will be killed for the thunder
 
-let enemyLeftIntervalId = null;
-let enemyRightIntervalId = null;
+let atackArr = []; // arr for the atack
+let enemyArr = []; // arr for the enemy
+let thunderArr = []; // arr for the thunder
 
-let spawnTime1 = 3000; // si aumenta la dificultad, se resta el tiempo de spawn
-let spawnTime2 = 2600; // si aumenta la dificultad, se resta el tiempo de spawn
+let enemyLeftIntervalId = null; // left side enemy spawn interval id
+let enemyRightIntervalId = null; // right side enemy spawn interval id
 
-//effects audio
+let spawnTime1 = 3000; // initial time for the enemy spawn 1
+let spawnTime2 = 2600; // initial time for the enemy spawn 2
+
+
+  /************  AUDIO EFFECTS  ************/
 let punchSound = new Audio("./Resources/Audio/punch-effect-sound.mp3");
 punchSound.volume = 0.1;
 
@@ -47,7 +53,13 @@ ambientSoundAudio.volume = 0.1;
 let bloodSoundEnemy = new Audio("./Resources/Audio/blood-hit-sound.mp3");
 bloodSoundEnemy.volume = 0.2;
 
-// FUNCIONES GLOBALES DEL JUEGO
+let thunderSound = new Audio("./Resources/Audio/thunder-sound-effect.mp3");
+thunderSound.volume = 0.1;
+
+
+  /************  GLOBAL FUNCTIONS OF THE GAME  ************/
+
+  // START GAME FUNCTION
 function startGame() {
   initialScreenNode.style.display = "none";
 
@@ -61,14 +73,17 @@ function startGame() {
   }, Math.round(1000 / 60)); // 60 FPS
 }
 
+
+  // GAME LOOP FUNCTION
 function gameLoop() {
   // HERE WE ADD ONLY WHAT MUST BE EXECUTED 60 TIMES PER SECOND. (WHAT MUST BE CONTINUOUSLY CHECKED IN THE GAME)
   heroObj.gravityEffect();
+
   enemyArr.forEach((eachEnemy) => {
     eachEnemy.enemyMovement();
   });
 
-  if(heroObj.isMovingRight === true) {
+  if (heroObj.isMovingRight === true) {
     heroObj.movement("right");
   } else if (heroObj.isMovingLeft === true) {
     heroObj.movement("left");
@@ -76,8 +91,12 @@ function gameLoop() {
 
   checkCollisionEddieVsMonster();
   checkCollisionEnemyVsAtack();
+  checkCollisionHeroVsCasetItem();
+  checkColissionThunderVsEnemy();
 }
 
+
+  // ADD ENEMY FUNCTION
 function addEnemy(side) {
   if (side === "left") {
     let enemy1 = new Enemy("left");
@@ -88,6 +107,8 @@ function addEnemy(side) {
   }
 }
 
+
+  // CHECK COLISSION BETWEEN EDDIE AND MONSTER
 function checkCollisionEddieVsMonster() {
   enemyArr.forEach((eachEnemy) => {
     if (
@@ -102,6 +123,8 @@ function checkCollisionEddieVsMonster() {
   });
 }
 
+
+  // GAME-OVER FUNCTION
 function gameOver() {
   sound.pause();
   clearInterval(gameIntervalId);
@@ -114,6 +137,8 @@ function gameOver() {
   }, 350);
 }
 
+
+  // CHECK COLISSION BETWEEN ENEMY AND THE ATACK
 function checkCollisionEnemyVsAtack() {
   atackArr.forEach((eachAtk) => {
     enemyArr.forEach((eachEnemy, i) => {
@@ -132,7 +157,52 @@ function checkCollisionEnemyVsAtack() {
   });
 }
 
-// EVENT LISTENERS
+
+  // CHECK COLISSION BETWEEN THE HERO AND THE CASET-ITEM
+function checkCollisionHeroVsCasetItem() {
+  if (
+    casetObj &&
+    casetObj.x < heroObj.x + heroObj.w &&
+    casetObj.x + casetObj.w > heroObj.x &&
+    casetObj.y < heroObj.y + heroObj.h &&
+    casetObj.y + casetObj.h > heroObj.y
+  ) {
+    casetObj.node.remove();
+    casetObj = null;
+
+    enemyToKill = enemyArr[0];
+    let thunderObj = new Thunder(enemyToKill.x);
+    thunderArr.push(thunderObj);
+    thunderSound.play();
+    setTimeout(() => {
+      thunderArr[0].node.remove();
+      thunderArr.shift();
+    }, 150);
+  }
+}
+
+
+  // CHECK COLISSION BETWEEN THE THUNDER AND THE ENEMY
+function checkColissionThunderVsEnemy() {
+  thunderArr.forEach((eachThunder) => {
+    enemyArr.forEach((eachEnemy, i) => {
+      if (
+        eachThunder.x < eachEnemy.x + eachEnemy.w &&
+        eachThunder.x + eachThunder.w > eachEnemy.x &&
+        eachThunder.y < eachEnemy.y + eachEnemy.h &&
+        eachThunder.y + eachThunder.h > eachEnemy.y
+      ) {
+        enemyArr[i].node.remove();
+        enemyArr.splice(i, 1); // remueves siempre el primero
+      }
+    });
+  });
+}
+
+
+  /************  EVENT LISTENERS ************/
+
+  // START BUTTON
 startBtnNode.addEventListener("click", () => {
   clickSound.play();
   ambientSoundAudio.pause();
@@ -141,15 +211,14 @@ startBtnNode.addEventListener("click", () => {
   startCountDown();
 });
 
-// hero movement
+
+  // HERO MOVEMENT
 document.addEventListener("keydown", (event) => {
   if (event.code === "KeyW") {
     heroObj.jump();
   } else if (event.code === "KeyD") {
-    // heroObj.movement("right");
     heroObj.isMovingRight = true;
   } else if (event.code === "KeyA") {
-    // heroObj.movement("left");
     heroObj.isMovingLeft = true;
   } else if (event.code === "Space") {
     let playerPos = heroObj.x;
@@ -172,6 +241,8 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
+
+  // RESTART BUTTON
 restartBtnNode.addEventListener("click", () => {
   clickSound.play();
 
@@ -179,11 +250,17 @@ restartBtnNode.addEventListener("click", () => {
   heroObj = null;
   eddieObj = null;
   gameIntervalId = null;
+  casetObj = null;
+  enemyToKill = null;
   atackArr = [];
   enemyArr = [];
+  thunderArr = [];
   enemyLeftIntervalId = null;
   enemyRightIntervalId = null;
   sound.currentTime = 0;
+  spawnTime1 = 3000;
+  spawnTime2 = 2600;
+  gameDuration = 340;
   // vaciamos el game-box
   gameBoxNode.innerHTML = null;
 
@@ -195,23 +272,33 @@ restartBtnNode.addEventListener("click", () => {
   startGame();
 });
 
+
+  // INSTRUCTIONS BUTTON
 instructionsBtnNode.addEventListener("click", () => {
   clickSound.play();
   initialScreenNode.style.display = "none";
   instructionsScreenNode.style.display = "flex";
 });
 
+
+  // MAIN SCREEN BUTTON (GAME-OVER SCREEN TO INITIAL SCREEN)
 mainScreenBtnNode.addEventListener("click", () => {
   clickSound.play();
   // vaciamos las variables
   heroObj = null;
   eddieObj = null;
   gameIntervalId = null;
+  casetObj = null;
+  enemyToKill = null;
   atackArr = [];
   enemyArr = [];
+  thunderArr = [];
   enemyLeftIntervalId = null;
   enemyRightIntervalId = null;
   sound.currentTime = 0;
+  spawnTime1 = 3000;
+  spawnTime2 = 2600;
+  gameDuration = 340;
   // vaciamos el game-box
   gameBoxNode.innerHTML = null;
 
@@ -219,34 +306,45 @@ mainScreenBtnNode.addEventListener("click", () => {
   initialScreenNode.style.display = "flex";
 });
 
+
+  // RETURN BUTTON (INSTRUCTIONS SCREEN TO INITIAL SCREEN)
 returnBtnNode.addEventListener("click", () => {
   clickSound.play();
   instructionsScreenNode.style.display = "none";
   initialScreenNode.style.display = "flex";
 });
 
+
+  // AMBIENT MUSIC BUTTON (INITIAL SCREEN)
 ambientMusicBtn.addEventListener("click", () => {
   ambientSoundAudio.play();
 });
-// BONUS IDEAS
 
-// AUDIO + TIMER
+
+  /************  BONUS IDEAS  ************/
+
+  // MAIN TRACK OF THE GAME: MASTER OF PUPPETS (METALICA)
 let sound = new Audio("./Resources/Audio/master-of-puppets-music.mp3");
 sound.volume = 0.1;
 
+
+  // GAME DURATION
 let gameDuration = 340; //should be 340 minutes
 
-// convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
+
+  // CONVERT THE TIME REMAINING IN SECONDS TO MINUTES AND SECONDS, AND PAD THE NUMBERS WITH ZEROS IF NEEDED
 const minutes = Math.floor(gameDuration / 60)
   .toString()
   .padStart(2, "0");
 const seconds = (gameDuration % 60).toString().padStart(2, "0");
 
-// display the time remaining in the time remaining container
+
+  // DISPLAY THE TIME REMAINING IN THE TIME REMAINING CONTAINER
 const timeRemainingContainer = document.getElementById("timeRemaining");
 timeRemainingContainer.innerText = `${minutes}:${seconds}`;
 
-//TIMER
+
+  //TIMER
 function startCountDown() {
   intervalId = setInterval(() => {
     if (
@@ -256,8 +354,8 @@ function startCountDown() {
       gameDuration === 150 ||
       gameDuration === 30
     ) {
-      spawnTime1 -= 200;
-      spawnTime2 -= 200;
+      spawnTime1 -= 400;
+      spawnTime2 -= 400;
 
       clearInterval(enemyLeftIntervalId);
       clearInterval(enemyRightIntervalId);
@@ -269,6 +367,18 @@ function startCountDown() {
       enemyRightIntervalId = setInterval(() => {
         addEnemy("right");
       }, spawnTime2);
+    }
+
+    if (
+      gameDuration === 300 ||
+      gameDuration === 240 ||
+      gameDuration === 200 ||
+      gameDuration === 150 ||
+      gameDuration === 100 ||
+      gameDuration === 50 ||
+      gameDuration === 30
+    ) {
+      casetObj = new CasetItem();
     }
 
     gameDuration--;
@@ -288,6 +398,8 @@ function startCountDown() {
   }, 1000);
 }
 
+
+  /************  ESPECIAL FUNCTION FOR THE EPIC FINAL OF THE GAME  ************/
 function epicFinalShowUp() {
   sound.pause();
   clearInterval(gameIntervalId);
