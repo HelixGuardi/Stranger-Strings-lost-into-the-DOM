@@ -2,7 +2,7 @@ class Atack {
 
     constructor(posX) {
         this.node = document.createElement("img");
-        this.node.src = "../Resources/animaciones/fast-slash-no-color-pixel-art copia.webp"
+        this.node.src = "./Resources/animaciones/fast-slash-no-color-pixel-art copia.webp"
 
         gameBoxNode.append(this.node);
 

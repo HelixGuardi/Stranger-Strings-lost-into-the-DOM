@@ -2,7 +2,7 @@ class EpicVideo {
 
     constructor() {
         this.node = document.createElement("video");
-        this.node.src = "../Resources/animaciones/epic-final.mp4";
+        this.node.src = "./Resources/animaciones/epic-final.mp4";
 
         gameBoxNode.append(this.node);
 

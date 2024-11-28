@@ -2,7 +2,7 @@ class Eddie {
 
     constructor() {
         this.node = document.createElement("img");
-        this.node.src = "../Resources/personajes/epic-guitar-moment-eddie-stranger-things-canal-alpha.png";
+        this.node.src = "./Resources/personajes/epic-guitar-moment-eddie-stranger-things-canal-alpha.png";
 
         gameBoxNode.append(this.node);
 

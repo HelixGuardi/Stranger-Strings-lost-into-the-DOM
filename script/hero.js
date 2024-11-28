@@ -4,7 +4,7 @@ class Hero {
     // here we have all the properties of the hero
     // we start with the image and we insert the image to the gamebox
     this.node = document.createElement("img");
-    this.node.src = "../Resources/personajes/Dustin-canal-aplha.png";
+    this.node.src = "./Resources/personajes/Dustin-canal-aplha.png";
 
     gameBoxNode.append(this.node);
 
@@ -50,11 +50,11 @@ class Hero {
     if(direction === "right") {
       this.x += this.speed;
       this.node.style.left = `${this.x}px`;
-      this.node.src = "../Resources/personajes/Dustin-canal-aplha.png"
+      this.node.src = "./Resources/personajes/Dustin-canal-aplha.png"
     } else if (direction === "left") {
       this.x -= this.speed;
       this.node.style.left = `${this.x}px`;
-      this.node.src = "../Resources/personajes/Dustin-canal-alpha-izquierda.png"
+      this.node.src = "./Resources/personajes/Dustin-canal-alpha-izquierda.png"
     }
   }
 }

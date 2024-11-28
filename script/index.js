@@ -26,18 +26,22 @@ let addEnemyIntervalId1 = null;
 let addEnemyIntervalId2 = null;
 
 //effects audio
-let punchSound = new Audio("../Resources/Audio/punch-effect-sound.mp3");
+let punchSound = new Audio("./Resources/Audio/punch-effect-sound.mp3");
 punchSound.volume = 0.1;
 
 let gameOverSound = new Audio(
-  "../Resources/Audio/videogame-death-sound-43894.mp3"
+  "./Resources/Audio/videogame-death-sound-43894.mp3"
 );
 gameOverSound.volume = 0.1;
 
-let clickSound = new Audio("../Resources/Audio/simple-click.mp3");
+let clickSound = new Audio("./Resources/Audio/simple-click.mp3");
 clickSound.volume = 0.2;
 
-let ambientSoundAudio = new Audio("../Resources/Audio/mystical-soundtrack.mp3");
+let ambientSoundAudio = new Audio("./Resources/Audio/mystical-soundtrack.mp3");
+ambientSoundAudio.volume = 0.1;
+
+let bloodSoundEnemy = new Audio("./Resources/Audio/blood-hit-sound.mp3");
+bloodSoundEnemy.volume = 0.2;
 
 // FUNCIONES GLOBALES DEL JUEGO
 function startGame() {
@@ -120,6 +124,7 @@ function checkCollisionEnemyVsAtack() {
         enemyArr[i].node.remove();
         enemyArr.splice(i, 1); // remueves siempre el primero
         punchSound.play();
+        bloodSoundEnemy.play();
       }
     });
   });
@@ -219,7 +224,7 @@ ambientMusicBtn.addEventListener("click", () => {
 // BONUS IDEAS
 
 // AUDIO + TIMER
-let sound = new Audio("../Resources/Audio/master-of-puppets-music.mp3");
+let sound = new Audio("./Resources/Audio/master-of-puppets-music.mp3");
 sound.volume = 0.1;
 
 let gameDuration = 340; //should be 340
