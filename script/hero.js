@@ -22,7 +22,10 @@ class Hero {
     this.node.style.left = `${this.x}px`;
 
     this.gravitySpeed = 5;
-    this.speed = 25;
+    this.speed = 7;
+
+    this.isMovingRight = false;
+    this.isMovingLeft = false;
   }
 
   // here we have all the methods of the Hero

@@ -13,17 +13,21 @@ const instructionsBtnNode = document.querySelector("#instructions-btn");
 const restartBtnNode = document.querySelector("#restart-btn");
 const mainScreenBtnNode = document.querySelector("#main-screen-btn");
 const returnBtnNode = document.querySelector("#return-btn");
-
 const ambientMusicBtn = document.querySelector("#btnAmbientSound");
 
 // VARIABLES GLOBALES DEL JUEGO
 let heroObj = null;
 let eddieObj = null;
 let gameIntervalId = null;
+
 let atackArr = [];
 let enemyArr = [];
-let addEnemyIntervalId1 = null;
-let addEnemyIntervalId2 = null;
+
+let enemyLeftIntervalId = null;
+let enemyRightIntervalId = null;
+
+let spawnTime1 = 3000; // si aumenta la dificultad, se resta el tiempo de spawn
+let spawnTime2 = 2600; // si aumenta la dificultad, se resta el tiempo de spawn
 
 //effects audio
 let punchSound = new Audio("./Resources/Audio/punch-effect-sound.mp3");
@@ -55,14 +59,6 @@ function startGame() {
   gameIntervalId = setInterval(() => {
     gameLoop();
   }, Math.round(1000 / 60)); // 60 FPS
-
-  addEnemyIntervalId1 = setInterval(() => {
-    addEnemy("left");
-  }, Math.floor(Math.random() * (5500 - 1000 + 1)) + 1000);
-
-  addEnemyIntervalId2 = setInterval(() => {
-    addEnemy("right");
-  }, Math.floor(Math.random() * (5500 - 1000 + 1)) + 1000);
 }
 
 function gameLoop() {
@@ -71,6 +67,12 @@ function gameLoop() {
   enemyArr.forEach((eachEnemy) => {
     eachEnemy.enemyMovement();
   });
+
+  if(heroObj.isMovingRight === true) {
+    heroObj.movement("right");
+  } else if (heroObj.isMovingLeft === true) {
+    heroObj.movement("left");
+  }
 
   checkCollisionEddieVsMonster();
   checkCollisionEnemyVsAtack();
@@ -103,8 +105,8 @@ function checkCollisionEddieVsMonster() {
 function gameOver() {
   sound.pause();
   clearInterval(gameIntervalId);
-  clearInterval(addEnemyIntervalId1);
-  clearInterval(addEnemyIntervalId2);
+  clearInterval(enemyLeftIntervalId);
+  clearInterval(enemyRightIntervalId);
 
   setTimeout(() => {
     gameScreenNode.style.display = "none";
@@ -144,15 +146,12 @@ document.addEventListener("keydown", (event) => {
   if (event.code === "KeyW") {
     heroObj.jump();
   } else if (event.code === "KeyD") {
-    heroObj.movement("right");
+    // heroObj.movement("right");
+    heroObj.isMovingRight = true;
   } else if (event.code === "KeyA") {
-    heroObj.movement("left");
-  }
-});
-
-// atk effect
-document.addEventListener("keydown", (event) => {
-  if (event.code === "Space") {
+    // heroObj.movement("left");
+    heroObj.isMovingLeft = true;
+  } else if (event.code === "Space") {
     let playerPos = heroObj.x;
 
     let atackObj = new Atack(playerPos);
@@ -165,6 +164,14 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+document.addEventListener("keyup", (event) => {
+  if (event.code === "KeyD") {
+    heroObj.isMovingRight = false;
+  } else if (event.code === "KeyA") {
+    heroObj.isMovingLeft = false;
+  }
+});
+
 restartBtnNode.addEventListener("click", () => {
   clickSound.play();
 
@@ -174,8 +181,8 @@ restartBtnNode.addEventListener("click", () => {
   gameIntervalId = null;
   atackArr = [];
   enemyArr = [];
-  addEnemyIntervalId1 = null;
-  addEnemyIntervalId2 = null;
+  enemyLeftIntervalId = null;
+  enemyRightIntervalId = null;
   sound.currentTime = 0;
   // vaciamos el game-box
   gameBoxNode.innerHTML = null;
@@ -202,8 +209,8 @@ mainScreenBtnNode.addEventListener("click", () => {
   gameIntervalId = null;
   atackArr = [];
   enemyArr = [];
-  addEnemyIntervalId1 = null;
-  addEnemyIntervalId2 = null;
+  enemyLeftIntervalId = null;
+  enemyRightIntervalId = null;
   sound.currentTime = 0;
   // vaciamos el game-box
   gameBoxNode.innerHTML = null;
@@ -219,7 +226,7 @@ returnBtnNode.addEventListener("click", () => {
 });
 
 ambientMusicBtn.addEventListener("click", () => {
-    ambientSoundAudio.play();
+  ambientSoundAudio.play();
 });
 // BONUS IDEAS
 
@@ -227,7 +234,7 @@ ambientMusicBtn.addEventListener("click", () => {
 let sound = new Audio("./Resources/Audio/master-of-puppets-music.mp3");
 sound.volume = 0.1;
 
-let gameDuration = 340; //should be 340
+let gameDuration = 340; //should be 340 minutes
 
 // convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
 const minutes = Math.floor(gameDuration / 60)
@@ -242,6 +249,28 @@ timeRemainingContainer.innerText = `${minutes}:${seconds}`;
 //TIMER
 function startCountDown() {
   intervalId = setInterval(() => {
+    if (
+      gameDuration === 340 ||
+      gameDuration === 300 ||
+      gameDuration === 240 ||
+      gameDuration === 150 ||
+      gameDuration === 30
+    ) {
+      spawnTime1 -= 200;
+      spawnTime2 -= 200;
+
+      clearInterval(enemyLeftIntervalId);
+      clearInterval(enemyRightIntervalId);
+
+      enemyLeftIntervalId = setInterval(() => {
+        addEnemy("left");
+      }, spawnTime1);
+
+      enemyRightIntervalId = setInterval(() => {
+        addEnemy("right");
+      }, spawnTime2);
+    }
+
     gameDuration--;
 
     const minutes = Math.floor(gameDuration / 60)
@@ -262,8 +291,8 @@ function startCountDown() {
 function epicFinalShowUp() {
   sound.pause();
   clearInterval(gameIntervalId);
-  clearInterval(addEnemyIntervalId1);
-  clearInterval(addEnemyIntervalId2);
+  clearInterval(enemyLeftIntervalId);
+  clearInterval(enemyRightIntervalId);
 
   let epicVideoObj = new EpicVideo();
 
@@ -274,8 +303,8 @@ function epicFinalShowUp() {
     gameIntervalId = null;
     atackArr = [];
     enemyArr = [];
-    addEnemyIntervalId1 = null;
-    addEnemyIntervalId2 = null;
+    enemyLeftIntervalId = null;
+    enemyRightIntervalId = null;
     // vaciamos el game-box
     gameBoxNode.innerHTML = null;
     gameDuration = 340;
