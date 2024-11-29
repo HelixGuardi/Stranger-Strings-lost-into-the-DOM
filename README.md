@@ -2,7 +2,7 @@
 
 ## [Play the Game!]([www.your-deploy-url-here.com](https://helixguardi.github.io/Stranger-Strings-lost-into-the-DOM/))
 
-![Game Logo](https://github.com/HelixGuardi/Stranger-Strings-lost-into-the-DOM/tree/main/Resources/img/Stranger-Strings-logo.png "Stranger Strings Logo")
+![Game Logo](./Resources/img/Stranger-Strings-Logo.png)
 
 
 # Description
