@@ -140,4 +140,4 @@ This project is structured to keep the HTML, CSS, and JavaScript components modu
 [Link](./Resources)
 
 ## Deploy
-[Link]((https://helixguardi.github.io/Stranger-Strings-lost-into-the-DOM/))
+[Link](https://helixguardi.github.io/Stranger-Strings-lost-into-the-DOM/)
