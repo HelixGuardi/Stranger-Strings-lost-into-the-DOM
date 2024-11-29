@@ -137,7 +137,7 @@ This project is structured to keep the HTML, CSS, and JavaScript components modu
 [Link]([www.your-trello-url-here.com](https://trello.com/invite/b/67498806623f0563292933dc/ATTIb41e30b6c2ceb6176553e9d7ecaa1639C5949154/stranger-strings-lost-into-the-dom-copy-for-github))
 
 ### Slides
-[Link](www.your-slides-url-here.com)
+[Link](./Resources)
 
 ## Deploy
 [Link]([www.your-deploy-url-here.com](https://helixguardi.github.io/Stranger-Strings-lost-into-the-DOM/))
