@@ -95,7 +95,6 @@ a {
   font-size: 19px;
   color: #545e4e;
 
-
   position: absolute;
   top: 400px;
   right: 70px;
@@ -188,7 +187,7 @@ a {
 }
 
 #game-box * {
-  pointer-events: none; /* prevents all elements of the game-box from being dragged when clicking on them */
+  pointer-events: none;
 }
 
 #game-box {
