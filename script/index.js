@@ -65,8 +65,8 @@ function startGame() {
 
   gameScreenNode.style.display = "flex";
 
-  eddieObj = new Eddie(); // aparece Eddie
-  heroObj = new Hero(); // aparece Hero
+  eddieObj = new Eddie(); // Eddie show up
+  heroObj = new Hero(); // Hero show up
 
   gameIntervalId = setInterval(() => {
     gameLoop();
@@ -149,7 +149,7 @@ function checkCollisionEnemyVsAtack() {
         eachEnemy.y + eachEnemy.h > eachAtk.y
       ) {
         enemyArr[i].node.remove();
-        enemyArr.splice(i, 1); // remueves siempre el primero
+        enemyArr.splice(i, 1); 
         punchSound.play();
         bloodSoundEnemy.play();
       }
@@ -193,7 +193,7 @@ function checkColissionThunderVsEnemy() {
         eachThunder.y + eachThunder.h > eachEnemy.y
       ) {
         enemyArr[i].node.remove();
-        enemyArr.splice(i, 1); // remueves siempre el primero
+        enemyArr.splice(i, 1); 
       }
     });
   });
@@ -246,7 +246,7 @@ document.addEventListener("keyup", (event) => {
 restartBtnNode.addEventListener("click", () => {
   clickSound.play();
 
-  // vaciamos las variables
+  // restart variables
   heroObj = null;
   eddieObj = null;
   gameIntervalId = null;
@@ -261,10 +261,10 @@ restartBtnNode.addEventListener("click", () => {
   spawnTime1 = 3000;
   spawnTime2 = 2600;
   gameDuration = 340;
-  // vaciamos el game-box
+
+  // restart game box node
   gameBoxNode.innerHTML = null;
 
-  // como la función startGame() comienza desde la pantalla de inicio, con el botón restart, vamos a la pantalla de inicio otra vez, y en seguida iniciamos la función, para evitar conflictos en el código
   gameOverScreenNode.style.display = "none";
   initialScreenNode.style.display = "flex";
 
@@ -284,7 +284,7 @@ instructionsBtnNode.addEventListener("click", () => {
   // MAIN SCREEN BUTTON (GAME-OVER SCREEN TO INITIAL SCREEN)
 mainScreenBtnNode.addEventListener("click", () => {
   clickSound.play();
-  // vaciamos las variables
+  // restart variables
   heroObj = null;
   eddieObj = null;
   gameIntervalId = null;
@@ -299,7 +299,8 @@ mainScreenBtnNode.addEventListener("click", () => {
   spawnTime1 = 3000;
   spawnTime2 = 2600;
   gameDuration = 340;
-  // vaciamos el game-box
+
+  // restart game box node
   gameBoxNode.innerHTML = null;
 
   gameOverScreenNode.style.display = "none";
@@ -329,7 +330,7 @@ sound.volume = 0.1;
 
 
   // GAME DURATION
-let gameDuration = 340; //should be 340 minutes
+let gameDuration = 340; // initialy should be 340 minutes
 
 
   // CONVERT THE TIME REMAINING IN SECONDS TO MINUTES AND SECONDS, AND PAD THE NUMBERS WITH ZEROS IF NEEDED
@@ -392,7 +393,7 @@ function startCountDown() {
 
     if (gameDuration === 0) {
       clearInterval(intervalId);
-      //función para mostrar el video que queremos
+      // function to show up de epic final video
       epicFinalShowUp();
     }
   }, 1000);
@@ -409,7 +410,7 @@ function epicFinalShowUp() {
   let epicVideoObj = new EpicVideo();
 
   setTimeout(() => {
-  // vaciamos las variables
+  // restart variables
   heroObj = null;
   eddieObj = null;
   gameIntervalId = null;
@@ -424,7 +425,7 @@ function epicFinalShowUp() {
   spawnTime1 = 3000;
   spawnTime2 = 2600;
   gameDuration = 340;
-  // vaciamos el game-box
+  // restart game box, timer and music
   gameBoxNode.innerHTML = null;
     gameDuration = 340;
     sound.currentTime = 0;
